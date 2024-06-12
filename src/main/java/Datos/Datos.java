@@ -180,6 +180,21 @@ public class Datos {
         JOptionPane.showMessageDialog(null, "Error al Modificar, error: " + e.toString());
     }
 }
+    public void EliminarCliente(JTextField paramId ) {
+        
+        ComunDB conexion = new ComunDB();
+        String consulta = "DELETE FROM Clientes WHERE ClienteId = ?";
+        try {
+             int clienteId = Integer.parseInt( paramId.toString()); // Obtener el texto y convertirlo a int
+
+            CallableStatement cs = conexion.obtenerConexion().prepareCall(consulta);
+            cs.setInt(0, clienteId); // Usar el valor int aquí
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Cliente " + Id + " eliminada exitosamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar al cliente " + Id + ": " + e.toString());
+        }
+    }
     }
 
 

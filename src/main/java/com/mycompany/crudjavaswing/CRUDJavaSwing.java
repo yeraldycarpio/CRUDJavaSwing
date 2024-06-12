@@ -14,4 +14,6 @@ public class CRUDJavaSwing {
        Inicio frmInicio = new Inicio();
        frmInicio.setVisible(true);
     }
+    
+       
 }
