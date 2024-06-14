@@ -11,8 +11,6 @@ package com.mycompany.crudjavaswing;
 public class CRUDJavaSwing {
 
     public static void main(String[] args) {
-       Inicio frmInicio = new Inicio();
-       frmInicio.setVisible(true);
     }
     
        

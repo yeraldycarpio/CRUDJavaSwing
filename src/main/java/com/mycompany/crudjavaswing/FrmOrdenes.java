@@ -4,9 +4,14 @@
  */
 package com.mycompany.crudjavaswing;
 
+import Datos.Ordenes;
+import javax.swing.JTextField;
+
 /**
  *
  * @author MINEDUCYT
+ * 
+ * jose mauricio chafoya marroquin
  */
 public class FrmOrdenes extends javax.swing.JFrame {
 
@@ -15,6 +20,9 @@ public class FrmOrdenes extends javax.swing.JFrame {
      */
     public FrmOrdenes() {
         initComponents();
+        Ordenes ordenes = new Ordenes();
+        ordenes.cargarDatosID(jComboBoxClienteId);
+        ordenes.mostrarOrdenes(jTableOrdenes);
     }
 
     /**
@@ -35,7 +43,6 @@ public class FrmOrdenes extends javax.swing.JFrame {
         jTextIdOrden = new javax.swing.JTextField();
         jTextFecha = new javax.swing.JTextField();
         jTextTotal = new javax.swing.JTextField();
-        jBtnBuscar = new javax.swing.JButton();
         jBtnGuardar = new javax.swing.JButton();
         jBtnEditar = new javax.swing.JButton();
         jBtnEliminar = new javax.swing.JButton();
@@ -71,13 +78,40 @@ public class FrmOrdenes extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("ClienteID");
 
-        jBtnBuscar.setText("Buscar");
+        jTextIdOrden.setEnabled(false);
+
+        jTextFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFechaActionPerformed(evt);
+            }
+        });
+
+        jTextTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextTotalActionPerformed(evt);
+            }
+        });
 
         jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnGuardarActionPerformed(evt);
+            }
+        });
 
         jBtnEditar.setText("Editar");
+        jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEditarActionPerformed(evt);
+            }
+        });
 
         jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarActionPerformed(evt);
+            }
+        });
 
         jTableOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,6 +124,11 @@ public class FrmOrdenes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableOrdenesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableOrdenes);
 
         jComboBoxClienteId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -103,9 +142,6 @@ public class FrmOrdenes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jBtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -136,14 +172,12 @@ public class FrmOrdenes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jBtnBuscar)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
+                                .addGap(70, 70, 70)
                                 .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextIdOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
@@ -173,6 +207,41 @@ public class FrmOrdenes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
+        // TODO add your handling code here:
+       Ordenes datos = new Ordenes();
+       datos.crear(jTextFecha, jTextTotal, jComboBoxClienteId);
+        datos.mostrarOrdenes(jTableOrdenes);
+    }//GEN-LAST:event_jBtnGuardarActionPerformed
+
+    private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
+        // TODO add your handling code here:
+        Ordenes datos = new Ordenes();
+        datos.modificarOrdenes(jTableOrdenes, jTextFecha, jComboBoxClienteId, jTextTotal);
+         datos.mostrarOrdenes(jTableOrdenes);
+    }//GEN-LAST:event_jBtnEditarActionPerformed
+
+    private void jTextFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextFechaActionPerformed
+
+    private void jTextTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextTotalActionPerformed
+
+    private void jTableOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOrdenesMouseClicked
+        // TODO add your handling code here:
+        Ordenes datos = new Ordenes();
+        datos.seleccionarOrdenes(jTableOrdenes, jTextFecha, jTextFecha, jComboBoxClienteId, jTextTotal);
+    }//GEN-LAST:event_jTableOrdenesMouseClicked
+
+    private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
+        // TODO add your handling code here:
+      Ordenes orden = new Ordenes();
+      orden.eliminarOrden(jTextIdOrden);
+    }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,7 +280,6 @@ public class FrmOrdenes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnBuscar;
     private javax.swing.JButton jBtnEditar;
     private javax.swing.JButton jBtnEliminar;
     private javax.swing.JButton jBtnGuardar;

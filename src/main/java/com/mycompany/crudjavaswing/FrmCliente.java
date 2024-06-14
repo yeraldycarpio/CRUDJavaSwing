@@ -211,9 +211,10 @@ public class FrmCliente extends javax.swing.JFrame {
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         // TODO add your handling code here:
-        Datos dato = new Datos();
-        dato.EliminarCliente(jTextFieldId);
-        dato.MostrarCliente(jTableClientes);
+  
+       Datos datos = new Datos();
+                datos.EliminarCliente(jTextFieldId);
+                datos.MostrarCliente(jTableClientes);
     }//GEN-LAST:event_jBtnEliminarActionPerformed
 
     /**
